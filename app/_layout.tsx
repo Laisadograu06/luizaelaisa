@@ -1,24 +1,13 @@
 import { SQLiteProvider } from "expo-sqlite";
 import { Slot } from "expo-router";
+import React from "react";
+import inicializarDatabase from "./database/inicializarDatabase";
 
 
 export default function Layout() {
-    const inicializeDatabase = async (database) => {
-        await database.execAsync(
-            `
-            CREATE TABLE IF NOT EXISTS cliente (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                nome TEXT,
-                email TEXT UNIQUE, 
-                telefone TEXT,
-                senha TEXT,
-            );`
-        );
-    };
-
     return (
-        <SQLiteProvider databaseName="agendamentoDatabase.db" onInit={inicializeDatabase}>
-            <Slot/>
+        <SQLiteProvider databaseName="financiasDatabase.db" onInit={inicializarDatabase}>
+            <Slot />
         </SQLiteProvider>
-    )
+    );
 }

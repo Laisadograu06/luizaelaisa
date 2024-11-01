@@ -1,7 +1,12 @@
 import { useSQLiteContext } from "expo-sqlite";
 
 export type UsuarioDatabase = {
-  complemento(complemento: any): unknown;
+  meta: any;
+  transporte: any;
+  lazer: any;
+  saude: any;
+  fixos: any;
+  renda: any;
   nome: string;
   email: string;
   telefone: string;
@@ -23,7 +28,6 @@ export function usuarioDatabase() {
 
   async function cadastrar(data: UsuarioDatabase) {
     try {
-      console.log(data.complemento);
       await database.execAsync(`
           INSERT INTO cliente (nome, email, telefone, senha ) 
           VALUES('${data.nome}', '${data.email}','${data.telefone}', '${data.senha}')
@@ -45,23 +49,22 @@ export function usuarioDatabase() {
       throw error;
     }
   }
-
-  async function inserirDepoimento(email: string, depoimento: string) {
+  async function inseririnformacao(email: string, informacao: string) {
     try {
       await database.execAsync(
-        `UPDATE cliente SET depoimento = ${depoimento} WHERE email = ${email};`,
+        `UPDATE cliente SET informacao = ${informacao} WHERE email = ${email};`,
       );
       return true;
     } catch (error) {
-      console.error("Erro ao inserir depoimento:", error);
+      console.error("Erro ao inserir informação:", error);
       throw error;
     }
   }
-  async function criarDepoimento(nome, idade, depoimento) {
+  async function informacao (data: UsuarioDatabase) {
     try {
       await database.execAsync(`
-          INSERT INTO depoimento (nome,idade,depoimento) 
-          VALUES('${nome}', '${idade}', '${depoimento}')
+          INSERT INTO informacao (renda, fixos, saude, lazer, transporte, meta ) 
+          VALUES('${data.renda}', '${data.fixos}','${data.saude}', '${data.lazer}', '${data.transporte}', '${data.meta}')
       `);
       return true;
     } catch (error) {
@@ -69,15 +72,5 @@ export function usuarioDatabase() {
     }
   }
 
-  async function listarDepoimento() {
-    try {
-      const resultado = await database.getAllAsync<UsuarioDatabase>("SELECT * FROM depoimento;");
-      return resultado;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-
-  return { listar, cadastrar, autenticarUsuario, inserirDepoimento, criarDepoimento, listarDepoimento };
+  return { listar, cadastrar, autenticarUsuario, informacao,inseririnformacao};
 }

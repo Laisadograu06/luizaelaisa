@@ -3,42 +3,42 @@ import { View, TextInput, Text, Alert, StyleSheet, Image, TouchableOpacity, Scro
 import { usuarioDatabase } from '../app/database/usuarioDatabase';
 import { router } from 'expo-router';
 
-export default function Cadastro() {
-    const [nome, setNome] = useState('');
-    const [email, setEmail] = useState('');
-    const [telefone, setTelefone] = useState('');
-    const [senha, setSenha] = useState('');
-    const [senhaConfirmacao, setSenhaConfirmacao] = useState('');
+export default function informacao() {
+    const [renda, setRenda] = useState('');
+    const [fixos, setFixos] = useState('');
+    const [saude, setSaude] = useState('');
+    const [lazer, setLazer] = useState('');
+    const [transporte, setTransporte] = useState('');
+    const [meta, setMeta] = useState('');
     
-    const { cadastrar } = usuarioDatabase();
+    const { informacao } = usuarioDatabase();
 
     const handleSalvarCliente = async () => {
-        if (!nome || !email || !telefone || !senha || !senhaConfirmacao) {
+        if (!renda || !fixos || !saude || !lazer || !transporte||!meta) {
             Alert.alert("Erro", "Por favor, preencha todos os campos.");
             return;
         }
 
-        if (senha !== senhaConfirmacao) {
-            Alert.alert("Erro", "As senhas não coincidem.");
-            return;
-        }
+        
 
         try {
-            await cadastrar({
-                nome,
-                email,
-                telefone,
-                senha,
-                senhaConfirmacao,
+            await informacao({
+                renda,
+                fixos,
+                saude,
+                lazer,
+                transporte,
+                meta,
             });
 
             Alert.alert("Sucesso", "Cliente cadastrado com sucesso!");
 
-            setNome('');
-            setEmail('');
-            setTelefone('');
-            setSenha('');
-            setSenhaConfirmacao('');
+            setRenda('');
+            setFixos('');
+            setSaude('');
+            setLazer('');
+            setTransporte('');
+            setMeta('');
             router.replace('/');
         } catch (error) {
             console.error("Erro ao adicionar o cliente:", error);
@@ -48,51 +48,60 @@ export default function Cadastro() {
 
     return (
         <ScrollView>
+      <Text style={styles.escrita}>Informe seus dados:</Text>
             <View style={styles.container}>
-                <Image source={require('../assets/image/logo.png')} style={styles.logo} />
+            
                 <View style={styles.conteudo}>
-                    <Text style={styles.escrita}>Insira alguns dados básicos:</Text>
+                    
 
-                    <Text style={styles.label}>Nome:</Text>
+                    <Text style={styles.label}>Renda mensal:</Text>
                     <TextInput
-                        value={nome}
-                        onChangeText={setNome}
-                        placeholder="Digite o nome"
+                        value={renda}
+                        onChangeText={setRenda}
+                        placeholder="Digite sua renda"
                         style={styles.input}
                     />
 
-                    <Text style={styles.label}>Email:</Text>
+                    <Text style={styles.label}>Fixos:</Text>
                     <TextInput
-                        value={email}
-                        onChangeText={setEmail}
-                        placeholder="Digite o email"
+                        value={fixos}
+                        onChangeText={setFixos}
+                        placeholder="Digite seus gastos fixos"
                         keyboardType="email-address"
                         style={styles.input}
                     />
 
-                    <Text style={styles.label}>Telefone:</Text>
+                    <Text style={styles.label}>Saúde:</Text>
                     <TextInput
-                        value={telefone}
-                        onChangeText={setTelefone}
-                        placeholder="Digite o telefone"
+                        value={saude}
+                        onChangeText={setSaude}
+                        placeholder="Digite seus gastos com a saúde"
                         keyboardType="phone-pad"
                         style={styles.input}
                     />
 
-                    <Text style={styles.label}>Crie uma senha:</Text>
+                    <Text style={styles.label}>Lazer:</Text>
                     <TextInput
-                        value={senha}
-                        onChangeText={setSenha}
-                        placeholder="Digite a senha"
+                        value={lazer}
+                        onChangeText={setLazer}
+                        placeholder="Digite seus gastos com lazer"
                         secureTextEntry
                         style={styles.input}
                     />
 
-                    <Text style={styles.label}>Repita a senha:</Text>
+                    <Text style={styles.label}>Transporte:</Text>
                     <TextInput
-                        value={senhaConfirmacao}
-                        onChangeText={setSenhaConfirmacao}
-                        placeholder="Repita a senha"
+                        value={transporte}
+                        onChangeText={setTransporte}
+                        placeholder="Digite seus gastos com transporte"
+                        secureTextEntry
+                        style={styles.input}
+                    />
+                       <Text style={styles.label}>meta de economia:</Text>
+                    <TextInput
+                        value={meta}
+                        onChangeText={setMeta}
+                        placeholder="Digite seu objetivo de economia"
                         secureTextEntry
                         style={styles.input}
                     />
@@ -142,7 +151,11 @@ const styles = StyleSheet.create({
     },
     escrita: {
         fontSize: 25,
-        marginTop: 100
+        marginTop: 20,
+        margin:50,
+
+        
+
     },
     logo: {
         top: 70,
