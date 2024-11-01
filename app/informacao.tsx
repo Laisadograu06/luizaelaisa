@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, Alert, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { usuarioDatabase } from '../app/database/usuarioDatabase';
-import { router } from 'expo-router';
+import { Link, router } from 'expo-router';
+
 
 export default function informacao() {
     const [renda, setRenda] = useState('');
@@ -11,7 +12,7 @@ export default function informacao() {
     const [transporte, setTransporte] = useState('');
     const [meta, setMeta] = useState('');
     
-    const { informacao } = usuarioDatabase();
+    //const { informacao } = usuarioDatabase();
 
     const handleSalvarCliente = async () => {
         if (!renda || !fixos || !saude || !lazer || !transporte||!meta) {
@@ -22,14 +23,14 @@ export default function informacao() {
         
 
         try {
-            await informacao({
-                renda,
-                fixos,
-                saude,
-                lazer,
-                transporte,
-                meta,
-            });
+            // await informacao({
+            //     renda,
+            //     fixos,
+            //     saude,
+            //     lazer,
+            //     transporte,
+            //     meta,
+            // });
 
             Alert.alert("Sucesso", "Cliente cadastrado com sucesso!");
 
@@ -48,9 +49,11 @@ export default function informacao() {
 
     return (
         <ScrollView>
-      <Text style={styles.escrita}>Informe seus dados:</Text>
-            <View style={styles.container}>
             
+            <View style={styles.container}>
+            <View style={styles.topo}>
+      <Text style={styles.escrita}>Informe seus dados:</Text>
+      </View>
                 <View style={styles.conteudo}>
                     
 
@@ -85,7 +88,6 @@ export default function informacao() {
                         value={lazer}
                         onChangeText={setLazer}
                         placeholder="Digite seus gastos com lazer"
-                        secureTextEntry
                         style={styles.input}
                     />
 
@@ -94,7 +96,6 @@ export default function informacao() {
                         value={transporte}
                         onChangeText={setTransporte}
                         placeholder="Digite seus gastos com transporte"
-                        secureTextEntry
                         style={styles.input}
                     />
                        <Text style={styles.label}>meta de economia:</Text>
@@ -102,7 +103,6 @@ export default function informacao() {
                         value={meta}
                         onChangeText={setMeta}
                         placeholder="Digite seu objetivo de economia"
-                        secureTextEntry
                         style={styles.input}
                     />
 
@@ -113,6 +113,7 @@ export default function informacao() {
                     <TouchableOpacity style={styles.botao} onPress={handleSalvarCliente}>
                         <Text style={styles.textoBotao}>Salvar</Text>
                     </TouchableOpacity>
+                    <Link href="./dentro/perfil" >perfil</Link>
                 </View>
             </View>
         </ScrollView>
@@ -120,12 +121,19 @@ export default function informacao() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-        backgroundColor: '#fff',
+    topo:{
+        backgroundColor:"#639EA8",
+        borderRadius: 15,
         alignItems: 'center',
-        margin: 20
+        marginBottom: 40,
+   
+    },
+    container: {
+        height: "100%",
+        padding: 30,
+        backgroundColor: '#A2CDBB',
+        alignItems: 'center',
+        
     },
     conteudo: {
         width: '100%',
@@ -151,15 +159,10 @@ const styles = StyleSheet.create({
     },
     escrita: {
         fontSize: 25,
-        marginTop: 20,
-        margin:50,
-
-        
+        padding: 20,
 
     },
-    logo: {
-        top: 70,
-    },
+    
     botao: {
         backgroundColor: '#191970',
         padding: 15,

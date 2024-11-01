@@ -10,7 +10,7 @@ export default function Cadastro() {
     const [senha, setSenha] = useState('');
     const [senhaConfirmacao, setSenhaConfirmacao] = useState('');
     
-    const { cadastrar } = usuarioDatabase();
+    // const { cadastrar } = usuarioDatabase();
 
     const handleSalvarCliente = async () => {
         if (!nome || !email || !telefone || !senha || !senhaConfirmacao) {
@@ -24,13 +24,13 @@ export default function Cadastro() {
         }
 
         try {
-            await cadastrar({
-                nome,
-                email,
-                telefone,
-                senha,
-                senhaConfirmacao,
-            });
+            // await cadastrar({
+            //     nome,
+            //     email,
+            //     telefone,
+            //     senha,
+            //     senhaConfirmacao,
+            // });
 
             Alert.alert("Sucesso", "Cliente cadastrado com sucesso!");
 
@@ -49,9 +49,10 @@ export default function Cadastro() {
     return (
         <ScrollView>
             <View style={styles.container}>
+                
                 <Image source={require('../assets/image/logo.png')} style={styles.logo} />
                 <View style={styles.conteudo}>
-                    <Text style={styles.escrita}>Insira alguns dados básicos:</Text>
+                    <Text style={styles.escrita}>Faça o cadastro:</Text>
 
                     <Text style={styles.label}>Nome:</Text>
                     <TextInput
@@ -113,10 +114,12 @@ export default function Cadastro() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
-        backgroundColor: '#fff',
+        padding: 40,
+        backgroundColor: "#A2CDBB",
         alignItems: 'center',
-        margin: 20
+        margin: 20,
+        borderRadius:15,
+
     },
     conteudo: {
         width: '100%',
@@ -142,10 +145,10 @@ const styles = StyleSheet.create({
     },
     escrita: {
         fontSize: 25,
-        marginTop: 100
+        
     },
     logo: {
-        top: 70,
+        top: 10,
     },
     botao: {
         backgroundColor: '#191970',

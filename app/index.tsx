@@ -47,7 +47,7 @@ export default function Index() {
       </TouchableOpacity>
     </View>
 
-            <Link href="./cadastro" style={styles.textoCadastro}>Não tem uma conta?</Link>
+            <Link href="../cadastro" style={styles.textoCadastro}>Não tem uma conta?</Link>
 
             </View>
 
@@ -57,8 +57,11 @@ export default function Index() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        padding: 20,
+        backgroundColor: "#A2CDBB",
         alignItems: 'center',
+        margin: 20,
+        borderRadius:15,
 
     },
     botao: {
@@ -77,7 +80,7 @@ const styles = StyleSheet.create({
     },
     escrita: {
         fontSize: 25,
-        marginTop: 250,
+        marginTop: 350,
     },
     barra: {
         backgroundColor: '#308B9A',
